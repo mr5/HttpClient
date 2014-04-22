@@ -9,9 +9,9 @@ HttpClient是一个基于PHP的cURL扩展的HTTP客户端库。它有三个类, 
 
 ``` php
 <?php
-use mr5\HttpClient\HttpClient;
-use mr5\HttpClient\HttpClientRequest;
-use mr5\HttpClient\HttpClientResponse;
+use HttpClient\HttpClient;
+use HttpClient\HttpClientRequest;
+use HttpClient\HttpClientResponse;
 
 $request = new HttpClientRequest();
 $request->setUrl('https://accounts.google.com/ServiceLogin');

@@ -11,9 +11,9 @@ HttpClient is a library for HTTP client library which based on cURL. It has 3 cl
 
 ``` php
 <?php
-use mr5\HttpClient\HttpClient;
-use mr5\HttpClient\HttpClientRequest;
-use mr5\HttpClient\HttpClientResponse;
+use HttpClient\HttpClient;
+use HttpClient\HttpClientRequest;
+use HttpClient\HttpClientResponse;
 
 $request = new HttpClientRequest();
 $request->setUrl('https://accounts.google.com/ServiceLogin');
