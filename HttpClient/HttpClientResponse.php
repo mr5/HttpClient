@@ -6,10 +6,10 @@
 // +----------------------------------------------------------------------
 // + Datetime: 14-4-20 下午3:53
 // +----------------------------------------------------------------------
-// + HttpClientResponse.class.php
+// + HttpClientResponse.php
 // +----------------------------------------------------------------------
 
-namespace mr5\HttpClient;
+namespace HttpClient;
 
 
 class HttpClientResponse

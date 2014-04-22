@@ -6,10 +6,10 @@
 // +----------------------------------------------------------------------
 // + Datetime: 14-4-20 下午3:53
 // +----------------------------------------------------------------------
-// + HttpClient.class.php
+// + HttpClient.php
 // +----------------------------------------------------------------------
 
-namespace mr5\HttpClient;
+namespace HttpClient;
 
 
 class HttpClient
@@ -191,7 +191,7 @@ class HttpClient
         foreach($headers as $header) {
             $header = trim($header);
             list($k, $v) = explode(':', $header);
-            $items[trim($k)] = in_array(substr($k, 8, 5), array('width','heigh','frame')) ? intval($v) : trim($v);
+            $items[trim($k)] = trim($v);
         }
         return $items;
     }

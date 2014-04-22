@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-0": {
-            "mr5/HttpClient": "mr5"
+            "HttpClient": "HttpClient"
         }
     }
 }
