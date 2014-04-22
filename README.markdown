@@ -1,4 +1,4 @@
-# Introduction
+# INTRODUCTION
 
 [中文文档](README_zh.markdown)
 
@@ -7,7 +7,7 @@ HttpClient is a library for HTTP client library which based on cURL. It has 3 cl
  with `HttpClientRequest` class(such as `getParams`, `postParams`, `referer`, `cookies`, `user-agent` and so on),
  and the `HttpClientResponse` provide most of HTTP response info, such as cookies, body, headers.
 
-# Base using
+# USAGE
 
 ``` php
 <?php
@@ -30,10 +30,11 @@ var_dump($response->getBody());
 var_dump($response->getCookies());
 ```
 
-# More Information
+# MORE INFORMATION
 
 For more information, please read the comments in source code  .
 
-# License
+# LICENSE
+
 MIT
 
