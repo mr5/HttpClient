@@ -259,8 +259,7 @@ class HttpClient
      */
     static private function  endsWith($haystack, $needles)
     {
-        foreach ((array) $needles as $needle)
-        {
+        foreach ((array) $needles as $needle) {
             if ($needle == substr($haystack, -strlen($needle))) return true;
         }
         return FALSE;
