@@ -1,23 +1,24 @@
 # Introduction
 
+[中文文档](README_zh.markdown)
+
 HttpClient is a library for HTTP client library which based on cURL. It has 3 class only, the `HttpClient::execute()`
  method accept a `HttpClientRequest` object, and return a `HttpClientResponse` object. Most of cURL options can be allocated
  with `HttpClientRequest` class(such as `getParams`, `postParams`, `referer`, `cookies`, `user-agent` and so on),
  and the `HttpClientResponse` provide most of HTTP response info, such as cookies, body, headers.
 
-[中文文档](README_zh.markdown)
-
-
 # Base using
 
 ``` php
+<?php
 use mr5\HttpClient\HttpClient;
 use mr5\HttpClient\HttpClientRequest;
 use mr5\HttpClient\HttpClientResponse;
 
 $request = new HttpClientRequest();
 $request->setUrl('https://accounts.google.com/ServiceLogin');
-$request->setGetParams(array('hl'=>'zh-CN', 'continue'=>'http://www.google.com.hk'));  // Params append to url.
+// Params append to url.
+$request->setGetParams(array('hl'=>'zh-CN', 'continue'=>'http://www.google.com.hk'));
 $request->setPostParams(array('username'=>'some username', 'password'=>'mypassword'));
 $request->setMethod(HttpClientRequest::METHOD_POST);
 
