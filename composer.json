@@ -1,5 +1,5 @@
 {
-    "name": "mr5/HttpClient",
+    "name": "mr5/http-client",
     "type": "library",
     "description": "A HTTP client library, easy to use, and clear to use. ",
     "keywords": ["http", "http client"],
