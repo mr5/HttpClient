@@ -5,9 +5,6 @@ HttpClient是一个基于PHP的cURL扩展的HTTP客户端库。它有三个类, 
  `HttpClientRequest` 类来配置(例如`GET参数`、`POST参数`、`来源`、`cookies`、`user-agent`等等)，
   而HTTP响应的大部分消息都可以通过`HttpClientResponse`对象来获取, 比如cookies、正文、HTTP头部等等。
 
-[中文文档](README_zh.markdown)
-
-
 # 使用示例
 
 ``` php
