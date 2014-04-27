@@ -17,7 +17,9 @@ class HttpClient
     /**
      * 通过`HttpClientRequest`执行CURL操作, `HttpClientRequest`可以配置绝大多数的CURL参数。
      * Execute cURL with `HttpClientRequest`, most cURL options can config by `HttpClientRequest`
+     *
      * @param HttpClientRequest $httpRequest
+     * 
      * @return HttpClientResponse
      */
     static public function execute(HttpClientRequest $httpRequest)
@@ -114,6 +116,15 @@ class HttpClient
         curl_close($ch);
         return $httpResponse;
     }
+
+    /**
+     * 为指定的URL添加`GET`参数
+     *
+     * @param string  $url
+     * @param array $params
+     *
+     * @return string
+     */
     static public function urlAddParams($url, $params)
     {
         $urlParsed = parse_url($url);
@@ -136,9 +147,11 @@ class HttpClient
     /**
      * 使用GET方法快速获取指定URL的响应正文
      * Fetch a given URL with `GET` method
+     *
      * @param $url
      * @param array|string $params
      * @param int $timeout
+     *
      * @return string
      */
     static public function fetch($url, $params = array(), $timeout=30)
@@ -156,10 +169,12 @@ class HttpClient
     /**
      * 使用`POST`方法提交数据到指定URL
      * Post some data to a given URL.
+     *
      * @param string        $url
      * @param array|string  $postParams Post body, It's the `query string` when string type given
      * @param array|string  $getParams  Params append to URL
      * @param int $timeout
+     *
      * @return string
      */
     static public function post($url, $postParams = NULL, $getParams = NULL, $timeout = 30) {
@@ -176,7 +191,9 @@ class HttpClient
     /**
      * 将Headers字符串信息解析成数组
      * Parse HTTP headers string to key-value array
+     *
      * @param string $headersStr
+     *
      * @return array
      */
     static public function parseHttpHeaders($headersStr)
@@ -199,8 +216,10 @@ class HttpClient
     /**
      * 将headers键值对数组转成cURL所需要的数组格式
      * Build headers key-value array to format of php cURL method
+     *
      * @param array $headersArr
      * @param bool $makeArray       [option]是否需要生成数组，默认为true，当为false时，会生成使用\r\n分割每条header的字符串。
+     *
      * @return array|string
      */
     static public function buildHttpHeaders($headersArr, $makeArray = TRUE)
@@ -217,7 +236,9 @@ class HttpClient
     /**
      * 将cookies字符串解析成数组
      * Parse cookies string to array
+     *
      * @param $cookiesStr
+     *
      * @return array
      */
     static public function parseHttpCookies($cookiesStr)
@@ -235,7 +256,9 @@ class HttpClient
     /**
      * 将cookies数组解析成字符串
      * Build cookies array to string
+     *
      * @param array $cookiesArr
+     *
      * @return string
      */
     static public function buildHttpCookies($cookiesArr)
@@ -253,8 +276,10 @@ class HttpClient
     /**
      * 判断`$haystack`是否以`$needles`结尾
      * Determine if the given haystack ends with a given needle.
+     *
      * @param string $haystack
      * @param string $needles
+     *
      * @return bool
      */
     static private function  endsWith($haystack, $needles)
