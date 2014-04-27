@@ -19,7 +19,7 @@ class HttpClient
      * Execute cURL with `HttpClientRequest`, most cURL options can config by `HttpClientRequest`
      *
      * @param HttpClientRequest $httpRequest
-     * 
+     *
      * @return HttpClientResponse
      */
     static public function execute(HttpClientRequest $httpRequest)
@@ -105,7 +105,7 @@ class HttpClient
         }
         
         $httpResponse = new HttpClientResponse();
-
+        // 解析响应字符串
         list($header_string, $body) = explode("\r\n\r\n", curl_exec($ch), 2);
         $httpResponse->setHeaders(self::parseHttpHeaders($header_string));
         $httpResponse->setCookies(self::parseHttpCookies($httpResponse->getHeader('Set-Cookie')));
