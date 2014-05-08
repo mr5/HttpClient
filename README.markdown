@@ -7,6 +7,10 @@ HttpClient is a library for HTTP client library which based on cURL. It has 3 cl
  with `HttpClientRequest` class(such as `getParams`, `postParams`, `referer`, `cookies`, `user-agent` and so on),
  and the `HttpClientResponse` provide most of HTTP response info, such as cookies, body, headers.
 
+# Composer
+```json
+"mr5/http-client": "1.0.*@dev"
+```
 # USAGE
 
 ``` php
