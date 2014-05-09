@@ -59,11 +59,7 @@ class HttpClient
         // 设置post参数
         if($httpRequest->getPostParams()) {
             curl_setopt($ch, CURLOPT_POST, true);
-            $_postFields = $httpRequest->getPostParams();
-            if(is_array($_postFields)) {
-                $_postFields = http_build_query($httpRequest->getPostParams());
-            }
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $_postFields);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $httpRequest->getPostParams());
         }
 
         // 设置COOKIE信息
