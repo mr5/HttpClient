@@ -36,7 +36,7 @@ var_dump($response->getCookies());
 
 # MORE INFORMATION
 
-For more information, please read the comments in source code  .
+For more information, please read the PHPDoc in source code  .
 
 # LICENSE
 
