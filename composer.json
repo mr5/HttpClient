@@ -20,7 +20,7 @@
   },
   "autoload": {
     "psr-4": {
-      "mr5\\HttpClient": "src\\mr5\\HttpClient"
+      "mr5\\HttpClient\\": "src\\mr5\\HttpClient"
     }
   }
 }
