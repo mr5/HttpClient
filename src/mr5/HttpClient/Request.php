@@ -17,7 +17,7 @@ class Request
     /**
      * @const string
      */
-    const METHOD_GET  = 'GET';
+    const METHOD_GET = 'GET';
     /**
      * @const string
      */
@@ -42,7 +42,7 @@ class Request
      * USER-AGENT信息
      * @var string
      */
-    protected $userAgent = NULL;
+    protected $userAgent = null;
     /**
      * cookie信息数组
      * @var array
@@ -68,12 +68,12 @@ class Request
      * url for request
      * @var string
      */
-    protected $url = NULL;
+    protected $url = null;
     /**
      * 来源
      * @var string
      */
-    protected $referer = NULL;
+    protected $referer = null;
     /**
      * 基础认证信息
      * @var array
@@ -88,19 +88,19 @@ class Request
      * post参数
      * @var array|string
      */
-    protected $postParams = NULL;
+    protected $postParams = null;
     /**
      * get参数，将被追加到url中，可以跟postParams共存
      * params in query string, it can be used together with `postParams`
      * @var array|string
      */
-    protected $getParams = NULL;
+    protected $getParams = null;
     /**
      * 是否二进制传输
      * is it binary transformation
      * @var bool
      */
-    protected $binary = FALSE;
+    protected $binary = false;
 
     /**
      * @param boolean $binary
@@ -155,6 +155,7 @@ class Request
     {
         return $this->getParams[$key];
     }
+
     /**
      * 重新设置POST参数，可以是字符串或数组
      * @param array|string $postParams
@@ -192,6 +193,7 @@ class Request
     {
         return $this->postParams[$key];
     }
+
     /**
      * @param string $username
      * @param string $password
@@ -266,12 +268,15 @@ class Request
     public function setMethod($method)
     {
         $method = strtoupper($method);
-        if(!in_array($method,
-            array(self::METHOD_GET,
+        if (!in_array($method,
+            array(
+                self::METHOD_GET,
                 self::METHOD_POST,
                 self::METHOD_DELETE,
                 self::METHOD_HEAD,
-                self::METHOD_PUT))) {
+                self::METHOD_PUT
+            ))
+        ) {
             $method = self::METHOD_GET;
         }
         $this->method = $method;
@@ -284,7 +289,6 @@ class Request
     {
         return $this->method;
     }
-
 
 
     /**
@@ -323,10 +327,10 @@ class Request
      * @param string $url
      * @param array $getParams
      */
-    public function setUrl($url, $getParams=NULL)
+    public function setUrl($url, $getParams = null)
     {
         $this->url = $url;
-        if(is_array($getParams) && count($getParams) > 0) {
+        if (is_array($getParams) && count($getParams) > 0) {
             $this->setGetParams($getParams);
         }
     }
@@ -361,16 +365,16 @@ class Request
      */
     public function reset()
     {
-        $this->userAgent = NULL;
+        $this->userAgent = null;
         $this->cookies = array();
         $this->headers = array();
         $this->timeout = 30;
         $this->method = self::METHOD_GET;
-        $this->url = NULL;
-        $this->referer = NULL;
+        $this->url = null;
+        $this->referer = null;
         $this->baseAuth = array();
         $this->maxRedirects = 4;
-        $this->postParams = NULL;
-        $this->getParams = NULL;
+        $this->postParams = null;
+        $this->getParams = null;
     }
 }

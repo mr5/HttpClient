@@ -27,7 +27,7 @@ class Client
 
         // 追加GET参数到URL
         // Append `GET` params to URL
-        if($httpRequest->getGetParams() && count($httpRequest->getGetParams()) > 0) {
+        if ($httpRequest->getGetParams() && count($httpRequest->getGetParams()) > 0) {
             $url = self::urlAddParams($url, $httpRequest->getGetParams());
 
         }
@@ -36,7 +36,7 @@ class Client
         curl_setopt($ch, CURLOPT_TIMEOUT, $httpRequest->getTimeout());
 
 
-        if($httpRequest->getMaxRedirects() < 1) {
+        if ($httpRequest->getMaxRedirects() < 1) {
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
         } else {
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -46,30 +46,30 @@ class Client
 
         // 设置HTTP BASE AUTH
         $baseAuthInfo = $httpRequest->getBaseAuth();
-        if(is_array($baseAuthInfo) && $baseAuthInfo['username']  && $baseAuthInfo['password']) {
-            curl_setopt($ch, CURLOPT_USERPWD, $baseAuthInfo['username'].':'.$baseAuthInfo['password']);
+        if (is_array($baseAuthInfo) && !empty($baseAuthInfo['username']) && !empty($baseAuthInfo['password'])) {
+            curl_setopt($ch, CURLOPT_USERPWD, $baseAuthInfo['username'] . ':' . $baseAuthInfo['password']);
         }
 
         // 设置自定义http method name
-        if(!in_array($httpRequest->getMethod(), array(Request::METHOD_GET, Request::METHOD_POST))) {
+        if (!in_array($httpRequest->getMethod(), array(Request::METHOD_GET, Request::METHOD_POST))) {
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $httpRequest->getMethod());
         }
 
         // 设置post参数
-        if($httpRequest->getPostParams()) {
+        if ($httpRequest->getPostParams()) {
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $httpRequest->getPostParams());
         }
 
         // 设置COOKIE信息
-        if($httpRequest->getCookies()) {
+        if ($httpRequest->getCookies()) {
             $_cookies = $httpRequest->getCookies();
             curl_setopt($ch, CURLOPT_COOKIE, is_array($_cookies) ? self::buildHttpCookies($_cookies) : $_cookies);
         }
 
         // 设置header信息
         $_headers = array('Expect:');
-        if($httpRequest->getHeaders()) {
+        if ($httpRequest->getHeaders()) {
             $_headers = array_merge($_headers, self::buildHttpHeaders($httpRequest->getHeaders()));
         }
         curl_setopt($ch, CURLOPT_HEADER, true);
@@ -77,36 +77,36 @@ class Client
 
         // 无body
         // `CURLOPT_NOBODY` will be set `true` when the method is `Request::METHOD_HEAD`
-        if($httpRequest->getMethod() == Request::METHOD_HEAD) {
+        if ($httpRequest->getMethod() == Request::METHOD_HEAD) {
             curl_setopt($ch, CURLOPT_NOBODY, true);
         }
 
         // 二进制传输
         // Set Binary
-        if($httpRequest->isBinary()) {
-            curl_setopt($ch,CURLOPT_BINARYTRANSFER, true);
+        if ($httpRequest->isBinary()) {
+            curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
         }
 
         // 设置用户代理(USER-AGENT)
         // Set USER-AGENT
-        if($httpRequest->getUserAgent()) {
-            curl_setopt($ch,CURLOPT_USERAGENT, $httpRequest->getUserAgent());
+        if ($httpRequest->getUserAgent()) {
+            curl_setopt($ch, CURLOPT_USERAGENT, $httpRequest->getUserAgent());
         }
 
         // 设置来源网址
         // Set referer
-        if($httpRequest->getReferer()) {
-            curl_setopt($ch,CURLOPT_REFERER, $httpRequest->getReferer());
+        if ($httpRequest->getReferer()) {
+            curl_setopt($ch, CURLOPT_REFERER, $httpRequest->getReferer());
         }
-        
-        $httpResponse = new HttpClientResponse();
+
+        $httpResponse = new Response();
         // 解析响应字符串
         list($header_string, $body) = explode("\r\n\r\n", curl_exec($ch), 2);
         $httpResponse->setHeaders(self::parseHttpHeaders($header_string));
         $httpResponse->setCookies(self::parseHttpCookies($httpResponse->getHeader('Set-Cookie')));
         $httpResponse->setBody($body);
         $httpResponse->setTimeCost(curl_getinfo($ch, CURLINFO_CONNECT_TIME));
-        $httpResponse->setHttpStatusCode(curl_getinfo($ch,CURLINFO_HTTP_CODE));
+        $httpResponse->setHttpStatusCode(curl_getinfo($ch, CURLINFO_HTTP_CODE));
 
         curl_close($ch);
         return $httpResponse;
@@ -115,7 +115,7 @@ class Client
     /**
      * 为指定的URL添加`GET`参数
      *
-     * @param string  $url
+     * @param string $url
      * @param array $params
      *
      * @return string
@@ -126,11 +126,11 @@ class Client
 
         // 如果没有query并且没有以 / 结尾，则在url的尾部加上 /
         // Append `/` to URL when the URL has no `query string` and it's not ends with `/`
-        if(!$urlParsed['path'] && !self::endsWith($url, '/')) {
+        if (!$urlParsed['path'] && !self::endsWith($url, '/')) {
             $url .= '/';
         }
 
-        if(!$urlParsed['query']) {
+        if (!$urlParsed['query']) {
             $url .= '?';
         } else {
             $url .= '&';
@@ -139,6 +139,7 @@ class Client
         $url .= http_build_query($params);
         return $url;
     }
+
     /**
      * 使用GET方法快速获取指定URL的响应正文
      * Fetch a given URL with `GET` method
@@ -149,7 +150,7 @@ class Client
      *
      * @return string
      */
-    static public function fetch($url, $params = array(), $timeout=30)
+    static public function fetch($url, $params = array(), $timeout = 30)
     {
         $httpRequest = new Request();
         $httpRequest->setUrl($url);
@@ -165,14 +166,15 @@ class Client
      * 使用`POST`方法提交数据到指定URL
      * Post some data to a given URL.
      *
-     * @param string        $url
-     * @param array|string  $postParams Post body, It's the `query string` when string type given
-     * @param array|string  $getParams  Params append to URL
+     * @param string $url
+     * @param array|string $postParams Post body, It's the `query string` when string type given
+     * @param array|string $getParams Params append to URL
      * @param int $timeout
      *
      * @return string
      */
-    static public function post($url, $postParams = NULL, $getParams = NULL, $timeout = 30) {
+    static public function post($url, $postParams = null, $getParams = null, $timeout = 30)
+    {
         $httpRequest = new Request();
         $httpRequest->setUrl($url);
         $httpRequest->setMethod(Request::METHOD_POST);
@@ -183,6 +185,7 @@ class Client
         $httpResponse = self::execute($httpRequest);
         return $httpResponse->getBody();
     }
+
     /**
      * 将Headers字符串信息解析成数组
      * Parse HTTP headers string to key-value array
@@ -195,12 +198,12 @@ class Client
     {
         $headers = explode("\r\n", $headersStr);
         $items = array();
-        if(strpos('http', strtolower($headers[0]))) {
+        if (strpos('http', strtolower($headers[0]))) {
             $items['_protocol'] = $headers[0];
             unset($headers[0]);
         }
 
-        foreach($headers as $header) {
+        foreach ($headers as $header) {
             $header = trim($header);
             list($k, $v) = explode(':', $header);
             $items[trim($k)] = trim($v);
@@ -213,21 +216,22 @@ class Client
      * Build headers key-value array to format of php cURL method
      *
      * @param array $headersArr
-     * @param bool $makeArray       [option]是否需要生成数组，默认为true，当为false时，会生成使用\r\n分割每条header的字符串。
+     * @param bool $makeArray [option]是否需要生成数组，默认为true，当为false时，会生成使用\r\n分割每条header的字符串。
      *
      * @return array|string
      */
-    static public function buildHttpHeaders($headersArr, $makeArray = TRUE)
+    static public function buildHttpHeaders($headersArr, $makeArray = true)
     {
         $_headers = array();
-        foreach($headersArr AS $_headerKey => $_headerValue) {
-            $_headers[] = $_headerKey.':'.$_headerValue;
+        foreach ($headersArr AS $_headerKey => $_headerValue) {
+            $_headers[] = $_headerKey . ':' . $_headerValue;
         }
-        if(!$makeArray) {
+        if (!$makeArray) {
             $_headers = implode("\r\n", $_headers);
         }
         return $_headers;
     }
+
     /**
      * 将cookies字符串解析成数组
      * Parse cookies string to array
@@ -240,7 +244,7 @@ class Client
     {
         $cookies = explode(";", $cookiesStr);
         $cookiesArray = array();
-        foreach($cookies as $cookie) {
+        foreach ($cookies as $cookie) {
             $cookie = trim($cookie);
             list($k, $v) = explode('=', $cookie);
             $cookiesArray[trim($k)] = trim($v);
@@ -259,11 +263,11 @@ class Client
     static public function buildHttpCookies($cookiesArr)
     {
         $cookiesStr = '';
-        foreach($cookiesArr AS $_k=>$v) {
-            if($cookiesStr != '') {
+        foreach ($cookiesArr AS $_k => $v) {
+            if ($cookiesStr != '') {
                 $cookiesStr .= '; ';
             }
-            $cookiesStr .= $_k.'='.$v;
+            $cookiesStr .= $_k . '=' . $v;
         }
         return $cookiesStr;
     }
@@ -279,9 +283,11 @@ class Client
      */
     static private function  endsWith($haystack, $needles)
     {
-        foreach ((array) $needles as $needle) {
-            if ($needle == substr($haystack, -strlen($needle))) return true;
+        foreach ((array)$needles as $needle) {
+            if ($needle == substr($haystack, -strlen($needle))) {
+                return true;
+            }
         }
-        return FALSE;
+        return false;
     }
 }

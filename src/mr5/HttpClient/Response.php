@@ -29,7 +29,7 @@ class Response
      * HTTP response content body
      * @var string
      */
-    protected $body = NULL;
+    protected $body = null;
     /**
      * cookies array
      * @var array
@@ -57,6 +57,7 @@ class Response
     {
         return $this->timeCost;
     }
+
     /**
      * @param string $body
      */
@@ -126,6 +127,7 @@ class Response
     {
         return $this->cookies[$key];
     }
+
     /**
      * @param array $cookies
      */
