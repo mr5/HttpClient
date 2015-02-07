@@ -203,7 +203,10 @@ class Client
             unset($headers[0]);
         }
 
-        foreach ($headers as $header) {
+        foreach ($headers as $k => $header) {
+            if ($k == 0) {
+                continue;
+            }
             $header = trim($header);
             list($k, $v) = explode(':', $header);
             $items[trim($k)] = trim($v);
@@ -242,6 +245,9 @@ class Client
      */
     static public function parseHttpCookies($cookiesStr)
     {
+        if (!$cookiesStr) {
+            return array();
+        }
         $cookies = explode(";", $cookiesStr);
         $cookiesArray = array();
         foreach ($cookies as $cookie) {

@@ -114,7 +114,7 @@ class Response
      */
     public function getHeader($key)
     {
-        return $this->headers[$key];
+        return isset($this->headers[$key]) ? $this->headers[$key] : null;
     }
 
 
