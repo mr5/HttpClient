@@ -6,13 +6,13 @@
 // +----------------------------------------------------------------------
 // + Datetime: 14-4-20 下午3:53
 // +----------------------------------------------------------------------
-// + HttpClientRequest.php
+// + Request.php
 // +----------------------------------------------------------------------
 
-namespace HttpClient;
+namespace mr5\HttpClient;
 
 
-class HttpClientRequest
+class Request
 {
     /**
      * @const string
@@ -357,7 +357,7 @@ class HttpClientRequest
 
     /**
      * 重置所有配置信息
-     * reset all `HttpClientRequest` properties to default
+     * reset all `Request` properties to default
      */
     public function reset()
     {

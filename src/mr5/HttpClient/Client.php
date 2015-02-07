@@ -6,23 +6,22 @@
 // +----------------------------------------------------------------------
 // + Datetime: 14-4-20 下午3:53
 // +----------------------------------------------------------------------
-// + HttpClient.php
+// + Client.php
 // +----------------------------------------------------------------------
 
-namespace HttpClient;
+namespace mr5\HttpClient;
 
-
-class HttpClient
+class Client
 {
     /**
-     * 通过`HttpClientRequest`执行CURL操作, `HttpClientRequest`可以配置绝大多数的CURL参数。
-     * Execute cURL with `HttpClientRequest`, most cURL options can config by `HttpClientRequest`
+     * 通过`Request`执行CURL操作, `Request`可以配置绝大多数的CURL参数。
+     * Execute cURL with `Request`, most cURL options can config by `Request`
      *
-     * @param HttpClientRequest $httpRequest
+     * @param Request $httpRequest
      *
-     * @return HttpClientResponse
+     * @return Response
      */
-    static public function execute(HttpClientRequest $httpRequest)
+    static public function execute(Request $httpRequest)
     {
         $url = $httpRequest->getUrl();
 
@@ -52,7 +51,7 @@ class HttpClient
         }
 
         // 设置自定义http method name
-        if(!in_array($httpRequest->getMethod(), array(HttpClientRequest::METHOD_GET, HttpClientRequest::METHOD_POST))) {
+        if(!in_array($httpRequest->getMethod(), array(Request::METHOD_GET, Request::METHOD_POST))) {
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $httpRequest->getMethod());
         }
 
@@ -77,8 +76,8 @@ class HttpClient
         curl_setopt($ch, CURLOPT_HTTPHEADER, $_headers);
 
         // 无body
-        // `CURLOPT_NOBODY` will be set `true` when the method is `HttpClientRequest::METHOD_HEAD`
-        if($httpRequest->getMethod() == HttpClientRequest::METHOD_HEAD) {
+        // `CURLOPT_NOBODY` will be set `true` when the method is `Request::METHOD_HEAD`
+        if($httpRequest->getMethod() == Request::METHOD_HEAD) {
             curl_setopt($ch, CURLOPT_NOBODY, true);
         }
 
@@ -152,9 +151,9 @@ class HttpClient
      */
     static public function fetch($url, $params = array(), $timeout=30)
     {
-        $httpRequest = new HttpClientRequest();
+        $httpRequest = new Request();
         $httpRequest->setUrl($url);
-        $httpRequest->setMethod(HttpClientRequest::METHOD_GET);
+        $httpRequest->setMethod(Request::METHOD_GET);
         $httpRequest->setGetParams($params);
         $httpRequest->setTimeout($timeout);
 
@@ -174,9 +173,9 @@ class HttpClient
      * @return string
      */
     static public function post($url, $postParams = NULL, $getParams = NULL, $timeout = 30) {
-        $httpRequest = new HttpClientRequest();
+        $httpRequest = new Request();
         $httpRequest->setUrl($url);
-        $httpRequest->setMethod(HttpClientRequest::METHOD_POST);
+        $httpRequest->setMethod(Request::METHOD_POST);
         $httpRequest->setGetParams($getParams);
         $httpRequest->setPostParams($postParams);
         $httpRequest->setTimeout($timeout);
