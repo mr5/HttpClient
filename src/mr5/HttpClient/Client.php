@@ -46,7 +46,7 @@ class Client
 
         // 设置HTTP BASE AUTH
         $baseAuthInfo = $httpRequest->getBaseAuth();
-        if (is_array($baseAuthInfo) && !empty($baseAuthInfo['username']) && !empty($baseAuthInfo['password'])) {
+        if (!empty($baseAuthInfo) && !empty($baseAuthInfo['username']) && !empty($baseAuthInfo['password'])) {
             curl_setopt($ch, CURLOPT_USERPWD, $baseAuthInfo['username'] . ':' . $baseAuthInfo['password']);
         }
 
