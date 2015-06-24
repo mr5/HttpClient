@@ -51,9 +51,7 @@ class Client
         }
 
         // 设置自定义http method name
-        if (!in_array($httpRequest->getMethod(), array(Request::METHOD_GET, Request::METHOD_POST))) {
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $httpRequest->getMethod());
-        }
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $httpRequest->getMethod());
 
         // 设置post参数
         if ($httpRequest->getPostParams()) {
